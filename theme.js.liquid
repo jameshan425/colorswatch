@@ -1,0 +1,40 @@
+/**
+     * Event handler for when a variant input changes.
+     */
+    _onSelectChange: function() {
+      var variant = this._getVariantFromOptions();
+
+      this.$container.trigger({
+        type: 'variantChange',
+        variant: variant
+      });
+
+      if (!variant) {
+        return;
+      }
+
+      this._updateMasterSelect(variant);
+      this._updateImages(variant);
+      this._updatePrice(variant);
+      this._updateSKU(variant);
+      this.currentVariant = variant;
+
+      if (this.enableHistoryState) {
+        this._updateHistoryState(variant);
+      }
+      
+      // BEGIN SWATCHES
+      var selector = this.originalSelectorId;
+      if (variant) {        
+        var form = $(selector).closest('form');
+        for (var i=0,length=variant.options.length; i<length; i++) {
+          var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');          
+          console.log(radioButton);
+          if (radioButton.size()) {
+            console.log(radioButton.size());
+              radioButton.get(0).checked = true;
+          }
+        }
+      }
+      // END SWATCHES
+    },

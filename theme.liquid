@@ -1,0 +1,9 @@
+<script>
+$(function() {
+  $('.swatch :radio').change(function() {
+    var optionIndex = $(this).closest('.swatch').attr('data-option-index');
+    var optionValue = $(this).val();    
+    $(this).closest('form').find('.single-option-radio').eq(optionIndex).find( "input[value='"+ optionValue + "']").trigger('click');
+  });
+});
+</script>
